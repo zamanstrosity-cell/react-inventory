@@ -22,15 +22,21 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  height: 250px;
+  padding: 10px;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(133, 132, 143, 0.699);
+  box-shadow: 4px 3px 4px 0px rgba(133, 132, 143, 0.699);
 }
