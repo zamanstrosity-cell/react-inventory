@@ -7,25 +7,30 @@ class UpdateModal extends Component {
         quantity: '',
         isOpen: false
     }
-    closeModal = e => {
+    toggleModal = e => {
         this.setState(
-            { isOpen: false }
+            { isOpen: !this.state.isOpen }
         )
     }
     handleChange = e => {
         this.setState({
-            quantity: e.target.value
+            quantity: parseInt(e.target.value)
         })
     }
     handleSubmit = e => {
         e.preventDefault();
+        this.props.confirmUpdate(this.state.quantity, this.props.pointer);
+        this.toggleModal();
+        this.setState({
+            quantity: ''
+        })
     }
     render() {
         return (
             <Modal show={this.state.isOpen}>
                 <Modal.Header>
                 <h5>Update Quantity</h5>
-                <button onClick={this.closeModal} className="btn btn-danger">Cancel</button>
+                <button onClick={this.toggleModal} className="btn btn-danger">Cancel</button>
                 </Modal.Header>
                 <Modal.Body>
                     <form style={{ display: 'flex', justifyContent: 'space-around'}} onSubmit={this.handleSubmit} className="update-modal">

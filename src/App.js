@@ -8,6 +8,10 @@ import './App.css';
 
 
 class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.Modal = React.createRef()
+  }
   state = {
     inventory: [],
     pointer: ''
@@ -35,12 +39,27 @@ class App extends React.Component {
     })
   }
   updateQuantity = (item)=> {
-      UpdateModal.setState({
-        isOpen: true
-      })
+      this.Modal.current.toggleModal();
       this.setState({
         pointer: item.id,
       })
+  }
+  confirmUpdate = (quantity, pointer) => {
+    this.setState({
+      inventory: this.state.inventory.map(item => {
+        if(item.id === pointer){
+          item.quantity = quantity;
+          console.log(quantity);
+          return item;
+        }
+        return item;
+      })
+    })
+  }
+  deleteItem = (id) => {
+    this.setState({
+      inventory: this.state.inventory.filter(item => item.id !== id)
+    })
   }
   render() {
   return (
@@ -49,9 +68,9 @@ class App extends React.Component {
       <div className="container">
       <h1 style={{ width: '100%' }}>Inventory</h1>
       <AddItem addProduct={this.addProduct}/>
-      <Inventory updateQuantity={this.updateQuantity} inventory= { this.state.inventory }> </Inventory>
+      <Inventory updateQuantity={this.updateQuantity} deleteItem={this.deleteItem} inventory= { this.state.inventory }> </Inventory>
       </div>
-      <UpdateModal pointer={this.state.pointer}/>
+      <UpdateModal confirmUpdate={this.confirmUpdate} ref={this.Modal} pointer={this.state.pointer}/>
     </div>
   );
 }
