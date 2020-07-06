@@ -27,6 +27,16 @@
   flex-direction: row;
   flex-wrap: wrap;
 }
+
+.add-product {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.add-product > * {
+  width: 20%;
+}
+
 .card {
   display: flex;
   flex-direction: column;
