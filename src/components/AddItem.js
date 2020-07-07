@@ -1,46 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-
-class AddItem extends React.Component {
-    state = {
-        item: {
+function AddItem(props) {
+    const [item, setItem] = useState({
+        name: '',
+        quantity: '',
+        unit: ''
+    })
+    const handleInput = e => {
+        const value = e.target.value;
+        setItem({
+            ...item,
+            [e.target.name]: value
+        })
+    }
+    const onSubmit = e => {
+        e.preventDefault();
+        props.addProduct(item);
+        setItem({
             name: '',
             quantity: '',
             unit: ''
-        }
-    }
-    handleInput = e => {
-        const value = e.target.value;
-        this.setState({
-            item: {
-                ...this.state.item,
-                [e.target.name]: value
-            }
         })
     }
-    onSubmit = e => {
-        e.preventDefault();
-        this.props.addProduct(this.state.item);
-        this.setState({
-            item: {
-                name: '',
-                quantity: '',
-                unit: ''
-            }
-        })
-    }
-    render() {
-        return (
-            <React.Fragment>
-                <form className="add-product" onSubmit= {this.onSubmit} style={{ width: '100%' }}>
-                    <input type="text" onChange={ this.handleInput } value={this.state.item.name} name="name" placeholder="Name" required/>
-                    <input type="number" onChange={ this.handleInput } value={this.state.item.quantity} name="quantity" placeholder="Quantity" required/>
-                    <input type="text" onChange={ this.handleInput } value={this.state.item.unit} name="unit" placeholder="Units" required/>
-                    <button type="submit" className="btn btn-success">Add Item</button>
-                </form>
-            </React.Fragment>
-        )
-    }
+    return (
+        <React.Fragment>
+        <form className="add-product" onSubmit= {onSubmit} style={{ width: '100%' }}>
+            <input type="text" onChange={ handleInput } value={item.name} name="name" placeholder="Name" required/>
+            <input type="number" onChange={ handleInput } value={item.quantity} name="quantity" placeholder="Quantity" required/>
+            <input type="text" onChange={ handleInput } value={item.unit} name="unit" placeholder="Units" required/>
+            <button type="submit" className="btn btn-success">Add Item</button>
+        </form>
+        </React.Fragment>
+    )
 }
 
 export default AddItem

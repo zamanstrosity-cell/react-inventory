@@ -1,17 +1,13 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export class Item extends Component {
-    render() {
-        return (
-            <div className="card">
-                <div>{ this.props.item.name }</div>
-                <div>{ this.props.item.quantity }</div>
-                <div>{ this.props.item.unit }</div>
-                <div><button onClick={this.props.updateQuantity.bind(this, this.props.item)} className="btn btn-primary">Update Quantity</button></div>
-                <div><button onClick={this.props.deleteItem.bind(this, this.props.item.id)} className="btn btn-danger">Delete Item</button></div>
-            </div>
-        )
-    }
+export default function Item(props) {
+    return (
+        <div className="card">
+            <div>{ props.item.name }</div>
+            <div>{ props.item.quantity }</div>
+            <div>{ props.item.unit }</div>
+            <div><button onClick={props.updateQuantity.bind(this, props.item)} className="btn btn-primary">Update Quantity</button></div>
+            <div><button onClick={props.deleteItem.bind(this, props.item.id)} className="btn btn-danger">Delete Item</button></div>
+        </div>
+    )
 }
-
-export default Item
