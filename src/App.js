@@ -8,14 +8,13 @@ import './App.css';
 
 
 class App extends React.Component {
-  constructor(props){
-    super(props)
-    this.Modal = React.createRef()
-  }
+
   state = {
     inventory: [],
-    pointer: ''
+    pointer: '',
+    showModal: false
   }
+
   addProduct = (item) => {
     if(this.state.inventory.some(product => product.name === item.name)){
       this.setState({
@@ -38,29 +37,38 @@ class App extends React.Component {
       inventory: [...this.state.inventory, newItem]
     })
   }
+
+  toggleModal = () => {
+    this.setState({
+      showModal: !this.state.showModal
+    })
+  }
+
   updateQuantity = (item)=> {
-      this.Modal.current.toggleModal();
+      this.toggleModal();
       this.setState({
         pointer: item.id,
       })
   }
-  confirmUpdate = (quantity, pointer) => {
+
+  confirmUpdate = (quantity) => {
     this.setState({
       inventory: this.state.inventory.map(item => {
-        if(item.id === pointer){
+        if(item.id === this.state.pointer){
           item.quantity = quantity;
-          console.log(quantity);
           return item;
         }
         return item;
       })
     })
   }
+
   deleteItem = (id) => {
     this.setState({
       inventory: this.state.inventory.filter(item => item.id !== id)
     })
   }
+
   render() {
   return (
     <div className="App">
@@ -70,7 +78,7 @@ class App extends React.Component {
       <AddItem addProduct={this.addProduct}/>
       <Inventory updateQuantity={this.updateQuantity} deleteItem={this.deleteItem} inventory= { this.state.inventory }> </Inventory>
       </div>
-      <UpdateModal confirmUpdate={this.confirmUpdate} ref={this.Modal} pointer={this.state.pointer}/>
+      <UpdateModal confirmUpdate={this.confirmUpdate} toggleModal={this.toggleModal} showModal={this.state.showModal} />
     </div>
   );
 }

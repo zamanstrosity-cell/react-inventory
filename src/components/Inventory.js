@@ -7,8 +7,8 @@ class Inventory extends Component {
             <Item
             key={item.id}
             updateQuantity={this.props.updateQuantity}
-            deleteItem={this.props.deleteItem} 
-            item={item} 
+            deleteItem={this.props.deleteItem}
+            item={item}
             />
         ))
     }

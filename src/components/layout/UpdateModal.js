@@ -4,30 +4,27 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 class UpdateModal extends Component {
     state = {
-        quantity: '',
-        isOpen: false
+        quantity: ''
     }
-    toggleModal = e => {
-        this.setState(
-            { isOpen: !this.state.isOpen }
-        )
-    }
+
     handleChange = e => {
         this.setState({
             quantity: parseInt(e.target.value)
         })
     }
+
     handleSubmit = e => {
         e.preventDefault();
-        this.props.confirmUpdate(this.state.quantity, this.props.pointer);
-        this.toggleModal();
+        this.props.confirmUpdate(this.state.quantity);
+        this.props.toggleModal();
         this.setState({
             quantity: ''
         })
     }
+
     render() {
         return (
-            <Modal show={this.state.isOpen}>
+            <Modal show={this.props.showModal}>
                 <Modal.Header>
                 <h5>Update Quantity</h5>
                 <button onClick={this.toggleModal} className="btn btn-danger">Cancel</button>
