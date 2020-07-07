@@ -8,7 +8,9 @@ import './App.css';
 
 const App = () => {
   const [inventory, setInventory] = useState([]);
-  const [pointer, setPointer] = useState('')
+  const [pointer, setPointer] = useState('');
+  const [showModal, setModal] = useState(false)
+
   const addProduct = (item) => {
     if(inventory.some(product => product.name === item.name)){
       setInventory(inventory =>
@@ -29,9 +31,16 @@ const App = () => {
     }
     setInventory(inventory => [...inventory, newItem])
   }
+
+  const toggleModal = () => {
+    setModal(!showModal)
+  }
+
   const updateQuantity = (item)=> {
       setPointer(item.id)
+      toggleModal();
   }
+
   const confirmUpdate = (quantity, pointer) => {
     setInventory(inventory => inventory.map(item => {
         if(item.id === pointer){
@@ -41,12 +50,14 @@ const App = () => {
         return item;
       })
     )
+
   }
   const deleteItem = (id) => {
-    setInventory(inventory=> 
+    setInventory(inventory=>
       inventory.filter(item => item.id !== id)
     )
   }
+
   return (
     <div className="App">
       <Header />
@@ -55,7 +66,7 @@ const App = () => {
         <AddItem addProduct={addProduct}/>
         <Inventory updateQuantity={updateQuantity} deleteItem={deleteItem} inventory={inventory} />
       </div>
-      <UpdateModal confirmUpdate={confirmUpdate} pointer={pointer}/>
+      <UpdateModal toggleModal={toggleModal} confirmUpdate={confirmUpdate} showModal={showModal} pointer={pointer}/>
     </div>
   )
 }

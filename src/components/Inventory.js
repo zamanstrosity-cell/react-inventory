@@ -6,8 +6,8 @@ const Inventory = props => {
         <Item
         key={item.id}
         updateQuantity={props.updateQuantity}
-        deleteItem={props.deleteItem} 
-        item={item} 
+        deleteItem={props.deleteItem}
+        item={item}
         />)))
     }
 
