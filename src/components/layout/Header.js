@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from '../../shelves.png'
-function Header() {
+const Header = () => {
     return (
         <React.Fragment>
         <header className="App-header">

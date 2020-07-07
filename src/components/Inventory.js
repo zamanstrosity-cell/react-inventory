@@ -1,7 +1,7 @@
 import React from 'react'
 import Item from './Item';
 
-export default function Inventory(props){
+const Inventory = props => {
     return (props.inventory.map(item => (
         <Item
         key={item.id}
@@ -10,3 +10,5 @@ export default function Inventory(props){
         item={item} 
         />)))
     }
+
+    export default Inventory

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function AddItem(props) {
+const AddItem = props => {
     const [item, setItem] = useState({
         name: '',
         quantity: '',
